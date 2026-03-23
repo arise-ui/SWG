@@ -12,6 +12,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+
     <style>
       * {
         margin: 0;
@@ -29,6 +30,7 @@
         overflow-x: hidden;
       }
 
+      /* Header & Nav */
       header {
         position: sticky;
         top: 0;
@@ -66,10 +68,12 @@
         width: 100%;
       }
 
+      /* Hamburger for mobile */
       .hamburger {
         display: none;
         flex-direction: column;
         cursor: pointer;
+        z-index: 2000;
       }
       .hamburger div {
         width: 25px;
@@ -79,6 +83,37 @@
         transition: 0.4s;
       }
 
+      /* Dropdown nav on mobile */
+      nav.dropdown {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        background: rgba(20, 20, 20, 0.95);
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+      nav.dropdown.show {
+        display: flex;
+        animation: slideDown 0.3s ease-out;
+      }
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Hero */
       .hero {
         height: 90vh;
         background: url("https://images.unsplash.com/photo-1493238792000-8113da705763")
@@ -96,7 +131,6 @@
       .hero p {
         margin: 15px 0;
       }
-
       .btn {
         padding: 12px 25px;
         margin: 5px;
@@ -115,6 +149,7 @@
         box-shadow: 0 10px 25px rgba(255, 0, 0, 0.6);
       }
 
+      /* Sections */
       .section {
         padding: 70px 40px;
       }
@@ -135,6 +170,7 @@
         border-radius: 2px;
       }
 
+      /* Grid and cards */
       .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -146,6 +182,7 @@
         border-radius: 12px;
         transition: 0.4s;
         cursor: pointer;
+        text-align: center;
       }
       .card:hover {
         transform: translateY(-8px) scale(1.04);
@@ -166,6 +203,7 @@
         color: #ff1a1a;
       }
 
+      /* Search & Filter */
       .search-box {
         display: flex;
         gap: 10px;
@@ -197,6 +235,7 @@
         background: #ff1a1a;
       }
 
+      /* Gallery */
       .gallery-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -207,6 +246,7 @@
         border-radius: 12px;
         overflow: hidden;
         transition: 0.4s;
+        cursor: pointer;
       }
       .gallery-card img {
         width: 100%;
@@ -218,6 +258,7 @@
         box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
       }
 
+      /* Modal */
       .modal {
         position: fixed;
         top: 0;
@@ -239,17 +280,13 @@
         display: flex;
       }
 
+      /* Counters */
       .counter {
         font-size: 2rem;
         color: #ff1a1a;
       }
 
-      footer {
-        text-align: center;
-        padding: 40px 20px;
-        background: #000;
-      }
-
+      /* WhatsApp floating button */
       .whatsapp-float {
         position: fixed;
         bottom: 20px;
@@ -266,6 +303,7 @@
         transform: scale(1.1);
       }
 
+      /* Animations */
       .fade-in {
         opacity: 0;
         transform: translateY(20px);
@@ -276,23 +314,18 @@
         transform: translateY(0);
       }
 
-      /* ===== Mobile ===== */
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        background: #000;
+      }
+
+      /* Mobile */
       @media (max-width: 768px) {
-        header {
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          padding: 15px 20px;
-        }
-        nav {
+        nav:not(.dropdown) {
           display: none;
-          flex-direction: column;
-          gap: 10px;
-          width: 100%;
-        }
-        nav.show {
-          display: flex;
-        }
+        } /* Hide normal nav on mobile */
         .hamburger {
           display: flex;
         }
@@ -345,10 +378,21 @@
         <div></div>
         <div></div>
       </div>
-      <nav id="navLinks">
+
+      <!-- Desktop nav -->
+      <nav class="desktop-nav">
         <a href="#products">Products</a>
         <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
         <a href="#contact">Contact</a>
+      </nav>
+
+      <!-- Mobile dropdown nav -->
+      <nav id="navLinks" class="dropdown">
+        <a href="#products" onclick="toggleMenu()">Products</a>
+        <a href="#services" onclick="toggleMenu()">Services</a>
+        <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
       </nav>
     </header>
 
@@ -362,9 +406,91 @@
       </div>
     </section>
 
-    <!-- Products / Gallery / Services / Impact ... same as before ... -->
+    <section class="section fade-in" id="products">
+      <h2>Our Products</h2>
+      <div class="search-box">
+        <input id="searchInput" placeholder="Search tyre size e.g. 205/55R16" />
+        <button class="btn" onclick="searchProduct()">Search</button>
+      </div>
+      <div class="filter-buttons">
+        <button onclick="filterProducts('all')" class="active">All</button>
+        <button onclick="filterProducts('tyre')">Tyres</button>
+        <button onclick="filterProducts('rim')">Rims</button>
+        <button onclick="filterProducts('battery')">Batteries</button>
+      </div>
+      <div class="grid" id="productGrid">
+        <div class="card tyre" onclick="openModal(this)">
+          <img
+            src="https://i.pinimg.com/736x/16/b1/ea/16b1eae4d4d0f085ff38b9baf52991d8.jpg"
+          />
+          <h3>Michelin Tyre</h3>
+          <p>205/55R16</p>
+        </div>
+        <div class="card rim" onclick="openModal(this)">
+          <img
+            src="https://i.pinimg.com/736x/00/b7/da/00b7dad3598f756eff41c85fe019f580.jpg"
+          />
+          <h3>Alloy Rim</h3>
+          <p>18 inch</p>
+        </div>
+        <div class="card battery" onclick="openModal(this)">
+          <img
+            src="https://i.pinimg.com/736x/53/8d/f1/538df112c50afc9382e756713229e582.jpg"
+          />
+          <h3>Battery</h3>
+          <p>12V</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- Contact Section with functional links -->
+    <section class="section fade-in" id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <div class="gallery-card" onclick="openModal(this)">
+          <img
+            src="https://i.pinimg.com/1200x/b1/f5/25/b1f525d18208a87ca94b90e67c85ef84.jpg"
+          />
+        </div>
+        <div class="gallery-card" onclick="openModal(this)">
+          <img
+            src="https://i.pinimg.com/1200x/c0/ab/0a/c0ab0a188c626b5e92ebea1ef03e5d30.jpg"
+          />
+        </div>
+        <div class="gallery-card" onclick="openModal(this)">
+          <img
+            src="https://i.pinimg.com/736x/9d/02/6d/9d026d44e438f80cec7f200e7976e46c.jpg"
+          />
+        </div>
+        <div class="gallery-card" onclick="openModal(this)">
+          <img
+            src="https://i.pinimg.com/736x/b0/f5/84/b0f58435ffb365f96c41cb42aa017e4b.jpg"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-in" id="services">
+      <h2>Services</h2>
+      <div class="grid">
+        <div class="card">
+          <i class="fas fa-car icon"></i>
+          <h3>Tyre Sales</h3>
+        </div>
+        <div class="card">
+          <i class="fas fa-tools icon"></i>
+          <h3>Alignment</h3>
+        </div>
+        <div class="card">
+          <i class="fas fa-cogs icon"></i>
+          <h3>Balancing</h3>
+        </div>
+        <div class="card">
+          <i class="fas fa-wrench icon"></i>
+          <h3>Repairs</h3>
+        </div>
+      </div>
+    </section>
+
     <section class="section fade-in" id="contact">
       <h2>Contact Us</h2>
       <div class="grid">
@@ -383,7 +509,6 @@
           <h3>
             <a
               href="https://wa.me/254790909295"
-              target="_blank"
               style="color: #fff; text-decoration: none"
               >WhatsApp</a
             >
@@ -393,38 +518,28 @@
           <i class="fas fa-map-marker-alt icon"></i>
           <h3>
             <a
-              href="https://maps.app.goo.gl/f5HYt12ejpX5M8S89"
+              href="https://goo.gl/maps/Zr23sVfXH1P2"
               target="_blank"
               style="color: #fff; text-decoration: none"
-            >
-              <p>
-                Visit us in Kenya along Ngong Rd, Posta Opposite Telkom, next to
-                Liquor Rituals
-              </p></a
+              >Location</a
             >
           </h3>
         </div>
       </div>
     </section>
 
-    <!-- Modal -->
     <div class="modal" id="modal" onclick="closeModal()">
       <img id="modalImg" />
     </div>
-
     <a href="https://wa.me/254790909295" class="whatsapp-float"
       ><i class="fab fa-whatsapp"></i
     ></a>
-
     <footer><p>© 2026 Direct Tyres Limited</p></footer>
 
     <script>
-      // Hamburger toggle
       function toggleMenu() {
         document.getElementById("navLinks").classList.toggle("show");
       }
-
-      // Fade-in
       const faders = document.querySelectorAll(".fade-in");
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -434,8 +549,6 @@
         });
       });
       faders.forEach((el) => observer.observe(el));
-
-      // Modal
       function openModal(card) {
         document.getElementById("modal").classList.add("show");
         document.getElementById("modalImg").src = card.querySelector("img").src;
@@ -444,7 +557,6 @@
         document.getElementById("modal").classList.remove("show");
       }
 
-      // Counters
       const counters = document.querySelectorAll(".counter");
       counters.forEach((counter) => {
         counter.innerText = "0";
@@ -460,7 +572,6 @@
         update();
       });
 
-      // Product filter/search
       function filterProducts(type) {
         document.querySelectorAll("#productGrid .card").forEach((card) => {
           card.style.display =
