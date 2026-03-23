@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Direct Tyres Limited</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+        transition: all 0.3s;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: #0b0b0b;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 40px;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(14px);
+        transition: 0.5s;
+      }
+      header h1 {
+        color: #ff1a1a;
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        position: relative;
+      }
+      nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: #ff1a1a;
+        transition: 0.3s;
+      }
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      .hero {
+        height: 95vh;
+        background: url("https://images.unsplash.com/photo-1493238792000-8113da705763")
+          center/cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        animation: heroFade 2s ease-out;
+      }
+      .hero h2 {
+        font-size: 3rem;
+        animation: slideIn 1.5s ease-out;
+      }
+      .hero p {
+        margin: 15px 0;
+        animation: slideIn 2s ease-out;
+      }
+      @keyframes heroFade {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes slideIn {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn {
+        padding: 12px 25px;
+        margin: 5px;
+        border: none;
+        cursor: pointer;
+        background: #ff1a1a;
+        color: #fff;
+        border-radius: 6px;
+        transition: 0.3s;
+      }
+      .btn.secondary {
+        background: transparent;
+        border: 1px solid #ff1a1a;
+      }
+      .btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 25px rgba(255, 0, 0, 0.6);
+      }
+
+      .section {
+        padding: 70px 40px;
+      }
+      .section h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        position: relative;
+      }
+      .section h2::after {
+        content: "";
+        width: 60px;
+        height: 3px;
+        background: #ff1a1a;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        background: #161616;
+        padding: 20px;
+        border-radius: 12px;
+        transition: 0.4s;
+        cursor: pointer;
+      }
+      .card:hover {
+        transform: translateY(-8px) rotateX(3deg) rotateY(3deg) scale(1.04);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+      }
+      .card img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        transition: 0.3s;
+      }
+      .card:hover img {
+        transform: scale(1.05) rotateZ(1deg);
+      }
+
+      .icon {
+        font-size: 25px;
+        margin-bottom: 10px;
+        color: #ff1a1a;
+      }
+
+      .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .search-box input {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        background: #222;
+        color: #fff;
+      }
+      .filter-buttons {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .filter-buttons button {
+        margin: 5px;
+        padding: 8px 15px;
+        border: none;
+        background: #222;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .filter-buttons button.active,
+      .filter-buttons button:hover {
+        background: #ff1a1a;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      .gallery-card {
+        background: #161616;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: 0.4s;
+      }
+      .gallery-card img {
+        width: 100%;
+        display: block;
+        transition: 0.3s;
+      }
+      .gallery-card:hover {
+        transform: translateY(-10px) scale(1.06) rotateX(2deg);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
+      }
+
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        animation: fadeIn 0.5s ease-in;
+      }
+      .modal img {
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 10px;
+      }
+      .modal.show {
+        display: flex;
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.6s;
+      }
+      .fade-in.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .counter {
+        font-size: 2rem;
+        color: #ff1a1a;
+        animation: counterAnim 2s ease-out;
+      }
+      @keyframes counterAnim {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        background: #000;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Direct Tyres</h1>
+      <nav>
+        <a href="#products">Products</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Premium Tyres, Rims & Batteries</h2>
+      <p>Trusted quality. Maximum performance.</p>
+      <div>
+        <a href="tel:+254700000000" class="btn">Call Now</a>
+        <a href="https://wa.me/254700000000" class="btn">WhatsApp</a>
+        <a href="#products" class="btn secondary">Shop Now</a>
+      </div>
+    </section>
+
+    <section class="section fade-in" id="products">
+      <h2>Our Products</h2>
+      <div class="search-box">
+        <input id="searchInput" placeholder="Search tyre size e.g. 205/55R16" />
+        <button class="btn" onclick="searchProduct()">Search</button>
+      </div>
+      <div class="filter-buttons">
+        <button onclick="filterProducts('all')" class="active">All</button>
+        <button onclick="filterProducts('tyre')">Tyres</button>
+        <button onclick="filterProducts('rim')">Rims</button>
+        <button onclick="filterProducts('battery')">Batteries</button>
+      </div>
+      <div class="grid" id="productGrid">
+        <div class="card tyre" onclick="openModal(this)">
+          <img
+            src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2"
+          />
+          <h3>Michelin Tyre</h3>
+          <p>205/55R16</p>
+        </div>
+        <div class="card rim" onclick="openModal(this)">
+          <img
+            src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a"
+          />
+          <h3>Alloy Rim</h3>
+          <p>18 inch</p>
+        </div>
+        <div class="card battery" onclick="openModal(this)">
+          <img
+            src="https://images.unsplash.com/photo-1581091870627-3b5e5c0a7b3c"
+          />
+          <h3>Battery</h3>
+          <p>12V</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-in">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <div class="gallery-card" onclick="openModal(this)">
+          <img
+            src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c"
+          />
+        </div>
+        <div class="gallery-card" onclick="openModal(this)">
+          <img
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+          />
+        </div>
+        <div class="gallery-card" onclick="openModal(this)">
+          <img
+            src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc"
+          />
+        </div>
+        <div class="gallery-card" onclick="openModal(this)">
+          <img
+            src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-in">
+      <h2>Our Impact</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="counter" data-target="5000">0</div>
+          <p>Tyres Sold</p>
+        </div>
+        <div class="card">
+          <div class="counter" data-target="1200">0</div>
+          <p>Happy Clients</p>
+        </div>
+        <div class="card">
+          <div class="counter" data-target="10">0</div>
+          <p>Years Experience</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-in" id="services">
+      <h2>Services</h2>
+      <div class="grid">
+        <div class="card">
+          <i class="fas fa-car icon"></i>
+          <h3>Tyre Sales</h3>
+        </div>
+        <div class="card">
+          <i class="fas fa-tools icon"></i>
+          <h3>Alignment</h3>
+        </div>
+        <div class="card">
+          <i class="fas fa-cogs icon"></i>
+          <h3>Balancing</h3>
+        </div>
+        <div class="card">
+          <i class="fas fa-wrench icon"></i>
+          <h3>Repairs</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fade-in" id="contact">
+      <h2>Contact</h2>
+      <div class="grid">
+        <div class="card">
+          <i class="fas fa-phone icon"></i>
+          <h3>Call</h3>
+        </div>
+        <div class="card">
+          <i class="fab fa-whatsapp icon"></i>
+          <h3>WhatsApp</h3>
+        </div>
+        <div class="card">
+          <i class="fas fa-map-marker-alt icon"></i>
+          <h3>Location</h3>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal" id="modal" onclick="closeModal()">
+      <img id="modalImg" />
+    </div>
+
+    <a href="https://wa.me/254700000000" class="whatsapp-float"
+      ><i class="fab fa-whatsapp"></i
+    ></a>
+
+    <footer>
+      <p>© 2026 Direct Tyres Limited</p>
+    </footer>
+
+    <script>
+      const faders = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      });
+      faders.forEach((el) => observer.observe(el));
+
+      function filterProducts(type) {
+        document.querySelectorAll("#productGrid .card").forEach((card) => {
+          card.style.display =
+            type === "all" || card.classList.contains(type) ? "block" : "none";
+        });
+      }
+      function searchProduct() {
+        let val = document.getElementById("searchInput").value.toLowerCase();
+        document.querySelectorAll("#productGrid .card").forEach((card) => {
+          card.style.display = card.innerText.toLowerCase().includes(val)
+            ? "block"
+            : "none";
+        });
+      }
+
+      function openModal(card) {
+        document.getElementById("modal").classList.add("show");
+        document.getElementById("modalImg").src = card.querySelector("img").src;
+      }
+      function closeModal() {
+        document.getElementById("modal").classList.remove("show");
+      }
+
+      const counters = document.querySelectorAll(".counter");
+      counters.forEach((counter) => {
+        counter.innerText = "0";
+        const update = () => {
+          const target = +counter.getAttribute("data-target");
+          const c = +counter.innerText;
+          const inc = target / 100;
+          if (c < target) {
+            counter.innerText = Math.ceil(c + inc);
+            setTimeout(update, 20);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        update();
+      });
+    </script>
+  </body>
+</html>
