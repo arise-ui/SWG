@@ -3,589 +3,2663 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Direct Tyres Limited</title>
+    <title>Direct Tyres Limited – Tyres, Rims & Batteries in Kenya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-
     <style>
-      * {
+      :root {
+        --red: #c8141a;
+        --red-soft: rgba(200, 20, 26, 0.08);
+        --dark: #0f0f0f;
+        --mid: #444;
+        --muted: #888;
+        --border: #e8e8e8;
+        --bg: #fafafa;
+        --white: #fff;
+        --nav-h: 60px;
+        --r: 12px;
+        --shadow: 0 2px 14px rgba(0, 0, 0, 0.07);
+        --shadow-md: 0 6px 28px rgba(0, 0, 0, 0.1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
-        font-family: "Inter", sans-serif;
-        transition: all 0.3s;
       }
       html {
         scroll-behavior: smooth;
       }
       body {
-        background: #0b0b0b;
-        color: #fff;
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--mid);
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
       }
 
-      /* Header & Nav */
-      header {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 40px;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(14px);
+      /* ── PAGE SECTIONS (hidden/shown) ──────────────────── */
+      .page {
+        display: none;
       }
-      header h1 {
-        color: #ff1a1a;
+      .page.active {
+        display: block;
       }
+
+      /* ── NAV ──────────────────────────────────────────── */
       nav {
-        display: flex;
-        gap: 20px;
-      }
-      nav a {
-        color: #fff;
-        text-decoration: none;
-        position: relative;
-      }
-      nav a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -4px;
-        width: 0;
-        height: 2px;
-        background: #ff1a1a;
-        transition: 0.3s;
-      }
-      nav a:hover::after {
-        width: 100%;
-      }
-
-      /* Hamburger for mobile */
-      .hamburger {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-        z-index: 2000;
-      }
-      .hamburger div {
-        width: 25px;
-        height: 3px;
-        background: #fff;
-        margin: 4px 0;
-        transition: 0.4s;
-      }
-
-      /* Dropdown nav on mobile */
-      nav.dropdown {
-        display: none;
-        flex-direction: column;
-        gap: 15px;
-        padding: 20px;
-        background: rgba(20, 20, 20, 0.95);
-        position: absolute;
-        top: 70px;
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-        border-bottom-left-radius: 12px;
-        border-bottom-right-radius: 12px;
-      }
-      nav.dropdown.show {
+        z-index: 999;
+        height: var(--nav-h);
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
         display: flex;
-        animation: slideDown 0.3s ease-out;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 18px;
       }
-      @keyframes slideDown {
-        0% {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        cursor: pointer;
       }
-
-      /* Hero */
-      .hero {
-        height: 90vh;
-        background: url("https://images.unsplash.com/photo-1493238792000-8113da705763")
-          center/cover no-repeat;
+      .nav-logo img {
+        height: 36px;
+        width: 36px;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+      .nav-logo-text {
+        line-height: 1.15;
+      }
+      .nav-logo-text strong {
+        display: block;
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: var(--dark);
+        letter-spacing: -0.2px;
+      }
+      .nav-logo-text small {
+        font-size: 0.68rem;
+        color: var(--red);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .nav-call {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--red);
+        color: var(--white);
+        text-decoration: none;
+        border-radius: 8px;
+        padding: 8px 15px;
+        font-weight: 600;
+        font-size: 0.84rem;
+        white-space: nowrap;
+        transition: background 0.2s;
+      }
+      .nav-call:hover {
+        background: #a81015;
+      }
+      .burger {
+        background: none;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        text-align: center;
-        padding: 20px;
+        justify-content: center;
+        gap: 5px;
       }
-      .hero h2 {
-        font-size: 3rem;
+      .burger span {
+        display: block;
+        width: 18px;
+        height: 1.5px;
+        background: var(--dark);
+        border-radius: 2px;
+        transition: 0.28s;
       }
-      .hero p {
-        margin: 15px 0;
+      .burger.open span:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
       }
-      .btn {
-        padding: 12px 25px;
-        margin: 5px;
-        border: none;
-        cursor: pointer;
-        background: #ff1a1a;
-        color: #fff;
-        border-radius: 6px;
+      .burger.open span:nth-child(2) {
+        opacity: 0;
       }
-      .btn.secondary {
-        background: transparent;
-        border: 1px solid #ff1a1a;
-      }
-      .btn:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 10px 25px rgba(255, 0, 0, 0.6);
+      .burger.open span:nth-child(3) {
+        transform: translateY(-6.5px) rotate(-45deg);
       }
 
-      /* Sections */
-      .section {
-        padding: 70px 40px;
+      /* drawer */
+      .drawer {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.32s ease;
+        z-index: 998;
       }
-      .section h2 {
+      .drawer.open {
+        max-height: 340px;
+      }
+      .drawer a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--dark);
+        text-decoration: none;
+        padding: 13px 20px;
+        font-size: 0.97rem;
+        font-weight: 500;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.15s;
+        cursor: pointer;
+      }
+      .drawer a:last-child {
+        border-bottom: none;
+      }
+      .drawer a:hover,
+      .drawer a.active {
+        background: var(--red-soft);
+        color: var(--red);
+      }
+      .drawer a svg {
+        color: var(--red);
+        flex-shrink: 0;
+      }
+
+      /* ── HERO ─────────────────────────────────────────── */
+      .hero {
+        margin-top: var(--nav-h);
+        background: var(--dark);
+        padding: 52px 20px 48px;
         text-align: center;
-        margin-bottom: 25px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-glow {
+        position: absolute;
+        width: 480px;
+        height: 480px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(200, 20, 26, 0.22) 0%,
+          transparent 70%
+        );
+        top: -120px;
+        right: -100px;
+        pointer-events: none;
+      }
+      .hero-tag {
+        display: inline-block;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        border-radius: 30px;
+        margin-bottom: 18px;
         position: relative;
       }
-      .section h2::after {
-        content: "";
-        width: 60px;
-        height: 3px;
-        background: #ff1a1a;
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 2px;
+      .hero h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(2.1rem, 7vw, 3.6rem);
+        color: var(--white);
+        line-height: 1.08;
+        position: relative;
+        letter-spacing: -0.5px;
       }
-
-      /* Grid and cards */
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
+      .hero h1 span {
+        color: var(--red);
       }
-      .card {
-        background: #161616;
-        padding: 20px;
-        border-radius: 12px;
-        transition: 0.4s;
-        cursor: pointer;
-        text-align: center;
+      .hero p {
+        color: rgba(255, 255, 255, 0.55);
+        margin: 14px auto 0;
+        max-width: 340px;
+        font-size: 0.97rem;
+        position: relative;
+        line-height: 1.6;
       }
-      .card:hover {
-        transform: translateY(-8px) scale(1.04);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
-      }
-      .card img {
-        width: 100%;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        transition: 0.3s;
-      }
-      .card:hover img {
-        transform: scale(1.05) rotateZ(1deg);
-      }
-      .icon {
-        font-size: 25px;
-        margin-bottom: 10px;
-        color: #ff1a1a;
-      }
-
-      /* Search & Filter */
-      .search-box {
+      .hero-btns {
         display: flex;
+        flex-wrap: wrap;
         gap: 10px;
-        margin-bottom: 20px;
-      }
-      .search-box input {
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-        background: #222;
-        color: #fff;
-      }
-      .filter-buttons {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .filter-buttons button {
-        margin: 5px;
-        padding: 8px 15px;
-        border: none;
-        background: #222;
-        color: #fff;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      .filter-buttons button.active,
-      .filter-buttons button:hover {
-        background: #ff1a1a;
-      }
-
-      /* Gallery */
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-      }
-      .gallery-card {
-        background: #161616;
-        border-radius: 12px;
-        overflow: hidden;
-        transition: 0.4s;
-        cursor: pointer;
-      }
-      .gallery-card img {
-        width: 100%;
-        display: block;
-        transition: 0.3s;
-      }
-      .gallery-card:hover {
-        transform: translateY(-10px) scale(1.06);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
-      }
-
-      /* Modal */
-      .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        display: none;
         justify-content: center;
+        margin-top: 28px;
+        position: relative;
+      }
+      .btn {
+        display: inline-flex;
         align-items: center;
-        z-index: 2000;
+        gap: 8px;
+        text-decoration: none;
+        border-radius: 9px;
+        padding: 11px 22px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s,
+          background 0.15s;
+        letter-spacing: -0.1px;
+        border: 1px solid transparent;
+        cursor: pointer;
       }
-      .modal img {
-        max-width: 90%;
-        max-height: 80%;
-        border-radius: 10px;
+      .btn:active {
+        transform: scale(0.97);
       }
-      .modal.show {
+      .btn-red {
+        background: var(--red);
+        color: var(--white);
+        border-color: var(--red);
+      }
+      .btn-red:hover {
+        background: #a81015;
+        border-color: #a81015;
+      }
+      .btn-ghost {
+        background: var(--white);
+        color: var(--dark);
+        border-color: var(--white);
+      }
+      .btn-ghost:hover {
+        background: #f0f0f0;
+      }
+
+      /* ── QUICK ACTIONS ────────────────────────────────── */
+      .quick-wrap {
+        padding: 20px 16px 0;
+      }
+      .quick {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .quick-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 16px 8px 14px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--dark);
+        transition:
+          box-shadow 0.18s,
+          transform 0.18s;
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .quick-card:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+      .quick-card:active {
+        transform: scale(0.96);
+      }
+      .quick-card.active {
+        background: var(--red-soft);
+        border-color: rgba(200, 20, 26, 0.2);
+      }
+      .quick-card .qico {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        background: var(--red-soft);
+        color: var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .quick-card span {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--dark);
+        line-height: 1.2;
       }
 
-      /* Counters */
-      .counter {
+      /* ── SECTION ──────────────────────────────────────── */
+      section {
+        padding: 40px 16px;
+      }
+      .pill {
+        display: inline-block;
+        background: var(--red-soft);
+        color: var(--red);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+        padding: 4px 12px;
+        border-radius: 30px;
+        margin-bottom: 10px;
+      }
+      h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(1.6rem, 5vw, 2.2rem);
+        color: var(--dark);
+        margin-bottom: 22px;
+        line-height: 1.12;
+        letter-spacing: -0.3px;
+      }
+      .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 0 16px;
+      }
+
+      /* ── SERVICES ─────────────────────────────────────── */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .srv-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 20px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        transition: box-shadow 0.18s;
+      }
+      .srv-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+      .srv-ico {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--red-soft);
+        color: var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .srv-card h3 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--dark);
+      }
+      .srv-card p {
+        font-size: 0.8rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* ── WHY US ───────────────────────────────────────── */
+      .why {
+        background: var(--dark);
+      }
+      .why .pill {
+        background: rgba(200, 20, 26, 0.2);
+        color: #ff6b6b;
+      }
+      .why h2 {
+        color: var(--white);
+      }
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .why-item {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: var(--r);
+        padding: 20px 16px;
+      }
+      .why-num {
+        font-family: "DM Serif Display", serif;
         font-size: 2rem;
-        color: #ff1a1a;
+        color: var(--red);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .why-item h4 {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+      .why-item p {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.5;
       }
 
-      /* WhatsApp floating button */
-      .whatsapp-float {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #25d366;
-        color: #fff;
-        padding: 16px;
-        border-radius: 50%;
-        font-size: 26px;
-        z-index: 3000;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      /* ── CONTACT ──────────────────────────────────────── */
+      .contact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
       }
-      .whatsapp-float:hover {
-        transform: scale(1.1);
+      .contact-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 16px 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        color: var(--mid);
+        transition: box-shadow 0.18s;
+      }
+      .contact-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+      .c-ico {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: var(--red-soft);
+        color: var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .contact-card strong {
+        display: block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--muted);
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      .contact-card span {
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 0.92rem;
       }
 
-      /* Animations */
-      .fade-in {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: 0.6s;
-      }
-      .fade-in.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* Footer */
+      /* ── FOOTER ───────────────────────────────────────── */
       footer {
+        padding: 24px 16px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.78rem;
+        border-top: 1px solid var(--border);
+      }
+      footer a {
+        color: var(--red);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      /* ── SHOP PAGE ────────────────────────────────────── */
+      .shop-header {
+        margin-top: var(--nav-h);
+        background: var(--dark);
+        padding: 32px 20px 28px;
+        position: relative;
+        overflow: hidden;
+      }
+      .shop-header .hero-glow {
+        width: 300px;
+        height: 300px;
+        top: -80px;
+      }
+      .shop-header h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(1.8rem, 6vw, 2.8rem);
+        color: var(--white);
+        position: relative;
+      }
+      .shop-header h1 span {
+        color: var(--red);
+      }
+      .shop-header p {
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 8px;
+        font-size: 0.9rem;
+        position: relative;
+      }
+
+      .shop-controls {
+        padding: 16px 16px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      .shop-search {
+        flex: 1;
+        min-width: 180px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        padding: 9px 14px;
+      }
+      .shop-search svg {
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+      .shop-search input {
+        border: none;
+        outline: none;
+        font-family: inherit;
+        font-size: 0.88rem;
+        color: var(--dark);
+        background: transparent;
+        width: 100%;
+      }
+      .shop-filter {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        padding: 9px 14px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+      }
+      .shop-filter select {
+        border: none;
+        outline: none;
+        font-family: inherit;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--dark);
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .category-tabs {
+        display: flex;
+        gap: 8px;
+        padding: 14px 16px 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .category-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .cat-tab {
+        flex-shrink: 0;
+        padding: 7px 14px;
+        border-radius: 30px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        border: 1px solid var(--border);
+        background: var(--white);
+        color: var(--mid);
+        cursor: pointer;
+        transition: all 0.18s;
+        white-space: nowrap;
+      }
+      .cat-tab.active {
+        background: var(--red);
+        border-color: var(--red);
+        color: var(--white);
+      }
+      .cat-tab:hover:not(.active) {
+        border-color: var(--red);
+        color: var(--red);
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 16px;
+      }
+      .product-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        overflow: hidden;
+        text-decoration: none;
+        color: var(--dark);
+        transition:
+          box-shadow 0.18s,
+          transform 0.18s;
+        display: flex;
+        flex-direction: column;
+      }
+      .product-card:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+      .product-card img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        display: block;
+      }
+      .product-img-wrap {
+        position: relative;
+      }
+      .stock-badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background: var(--red);
+        color: var(--white);
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        padding: 3px 8px;
+        border-radius: 4px;
+      }
+      .stock-badge.limited {
+        background: #e07b00;
+      }
+      .product-info {
+        padding: 12px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .product-name {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--dark);
+        line-height: 1.3;
+      }
+      .product-price {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--red);
+        margin-top: auto;
+      }
+      .product-wa {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: var(--dark);
+        color: var(--white);
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 9px 12px;
+        text-decoration: none;
+        transition: background 0.18s;
+      }
+      .product-wa:hover {
+        background: #25d366;
+      }
+
+      .no-results {
         text-align: center;
         padding: 40px 20px;
-        background: #000;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .load-more-wrap {
+        text-align: center;
+        padding: 0 16px 24px;
+      }
+      .load-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        padding: 11px 24px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        cursor: pointer;
+        color: var(--dark);
+        transition: border-color 0.18s;
+      }
+      .load-more:hover {
+        border-color: var(--red);
+        color: var(--red);
       }
 
-      /* Mobile */
-      @media (max-width: 768px) {
-        nav:not(.dropdown) {
-          display: none;
-        } /* Hide normal nav on mobile */
-        .hamburger {
-          display: flex;
-        }
-        .hero h2 {
-          font-size: 2rem;
-        }
-        .hero p {
-          font-size: 1rem;
-        }
-        .btn {
-          padding: 10px 18px;
-          font-size: 0.9rem;
-        }
-        .grid,
-        .gallery-grid {
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        }
-        .section {
-          padding: 50px 20px;
-        }
-        .whatsapp-float {
-          bottom: 15px;
-          right: 15px;
-          padding: 14px;
-          font-size: 24px;
-        }
+      /* ── LOCATION PAGE ────────────────────────────────── */
+      .loc-header {
+        margin-top: var(--nav-h);
+        background: var(--dark);
+        padding: 32px 20px 28px;
+        position: relative;
+        overflow: hidden;
       }
-      @media (max-width: 480px) {
-        .hero h2 {
-          font-size: 1.5rem;
+      .loc-header h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(1.8rem, 6vw, 2.8rem);
+        color: var(--white);
+        position: relative;
+      }
+      .loc-header h1 span {
+        color: var(--red);
+      }
+      .loc-header p {
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 8px;
+        font-size: 0.9rem;
+        position: relative;
+      }
+      .map-embed {
+        width: 100%;
+        height: 240px;
+        border: none;
+        display: block;
+      }
+      .loc-details {
+        padding: 24px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .loc-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 16px 18px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .loc-ico {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        flex-shrink: 0;
+        background: var(--red-soft);
+        color: var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .loc-card strong {
+        display: block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--muted);
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .loc-card p,
+      .loc-card a {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--dark);
+        text-decoration: none;
+        line-height: 1.5;
+      }
+      .loc-card a:hover {
+        color: var(--red);
+      }
+      .hours-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 16px;
+        margin-top: 4px;
+      }
+      .hours-row {
+        font-size: 0.82rem;
+        color: var(--mid);
+      }
+      .hours-row span {
+        color: var(--muted);
+      }
+      .social-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .social-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 16px;
+        border-radius: 9px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid var(--border);
+        color: var(--dark);
+        transition: all 0.18s;
+      }
+      .social-btn:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
+      .directions-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--red);
+        color: var(--white);
+        border-radius: 9px;
+        padding: 13px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        margin: 0 16px 24px;
+        transition: background 0.18s;
+      }
+      .directions-btn:hover {
+        background: #a81015;
+      }
+
+      /* ── BLOG PAGE ────────────────────────────────────── */
+      .blog-header {
+        margin-top: var(--nav-h);
+        background: var(--dark);
+        padding: 32px 20px 28px;
+        position: relative;
+        overflow: hidden;
+      }
+      .blog-header h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(1.8rem, 6vw, 2.8rem);
+        color: var(--white);
+        position: relative;
+      }
+      .blog-header h1 span {
+        color: var(--red);
+      }
+      .blog-header p {
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 8px;
+        font-size: 0.9rem;
+        position: relative;
+      }
+      .blog-cta-box {
+        margin: 24px 16px 0;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 24px;
+        text-align: center;
+      }
+      .blog-cta-box h3 {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.3rem;
+        color: var(--dark);
+        margin-bottom: 8px;
+      }
+      .blog-cta-box p {
+        font-size: 0.88rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 18px;
+      }
+      .blog-topics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 16px;
+      }
+      .blog-topic {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        padding: 18px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .blog-topic .t-ico {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--red-soft);
+        color: var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .blog-topic h4 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--dark);
+      }
+      .blog-topic p {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+      .blog-wa-cta {
+        margin: 0 16px 32px;
+        background: #0f0f0f;
+        border-radius: var(--r);
+        padding: 20px;
+        text-align: center;
+      }
+      .blog-wa-cta p {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.85rem;
+        margin-bottom: 14px;
+      }
+      .wa-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #25d366;
+        color: var(--white);
+        border-radius: 9px;
+        padding: 11px 22px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        text-decoration: none;
+        transition: opacity 0.18s;
+      }
+      .wa-btn:hover {
+        opacity: 0.88;
+      }
+
+      /* ── DESKTOP ──────────────────────────────────────── */
+      @media (min-width: 640px) {
+        .burger {
+          display: none;
         }
-        .hero p {
-          font-size: 0.9rem;
+        .drawer {
+          position: static;
+          max-height: none;
+          overflow: visible;
+          background: none;
+          border: none;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          gap: 2px;
         }
-        .btn {
-          padding: 8px 14px;
-          font-size: 0.8rem;
+        .drawer a {
+          padding: 7px 12px;
+          border: none;
+          font-size: 0.85rem;
+          color: var(--mid);
+          border-radius: 7px;
         }
-        .search-box {
-          flex-direction: column;
+        .drawer a svg {
+          display: none;
+        }
+        .drawer a:hover,
+        .drawer a.active {
+          background: var(--red-soft);
+          color: var(--red);
+        }
+        .quick {
+          grid-template-columns: repeat(6, 1fr);
+        }
+        .services-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .why-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .contact-list {
+          flex-direction: row;
+        }
+        .contact-card {
+          flex: 1;
+        }
+        .products-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .blog-topics {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .loc-details {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        .loc-card {
+          flex: 1;
+          min-width: 200px;
         }
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Direct Tyres</h1>
-      <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo" onclick="showPage('home')">
+        <img
+          src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop/YX4yvBGO4RhDVzop/whatsapp-image-2026-01-21-at-17.46.15-2-V34yAPJxzGuHLIfs.jpeg"
+          alt="Logo"
+        />
+        <div class="nav-logo-text">
+          <strong>Direct Tyres</strong>
+          <small>Limited</small>
+        </div>
       </div>
-
-      <!-- Desktop nav -->
-      <nav class="desktop-nav">
-        <a href="#products">Products</a>
-        <a href="#services">Services</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <!-- Mobile dropdown nav -->
-      <nav id="navLinks" class="dropdown">
-        <a href="#products" onclick="toggleMenu()">Products</a>
-        <a href="#services" onclick="toggleMenu()">Services</a>
-        <a href="#gallery" onclick="toggleMenu()">Gallery</a>
-        <a href="#contact" onclick="toggleMenu()">Contact</a>
-      </nav>
-    </header>
-
-    <section class="hero">
-      <h2>Premium Tyres, Rims & Batteries</h2>
-      <p>Trusted quality. Maximum performance.</p>
-      <div>
-        <a href="tel:+254790909295" class="btn">Call Now</a>
-        <a href="https://wa.me/254790909295" class="btn">WhatsApp</a>
-        <a href="#products" class="btn secondary">Shop Now</a>
+      <div class="nav-right">
+        <a class="nav-call" href="tel:+254790909295">
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+            />
+          </svg>
+          Call Us
+        </a>
+        <button class="burger" id="burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-    </section>
+    </nav>
 
-    <section class="section fade-in" id="products">
-      <h2>Our Products</h2>
-      <div class="search-box">
-        <input id="searchInput" placeholder="Search tyre size e.g. 205/55R16" />
-        <button class="btn" onclick="searchProduct()">Search</button>
-      </div>
-      <div class="filter-buttons">
-        <button onclick="filterProducts('all')" class="active">All</button>
-        <button onclick="filterProducts('tyre')">Tyres</button>
-        <button onclick="filterProducts('rim')">Rims</button>
-        <button onclick="filterProducts('battery')">Batteries</button>
-      </div>
-      <div class="grid" id="productGrid">
-        <div class="card tyre" onclick="openModal(this)">
-          <img
-            src="https://i.pinimg.com/736x/16/b1/ea/16b1eae4d4d0f085ff38b9baf52991d8.jpg"
+    <!-- DRAWER -->
+    <div class="drawer" id="drawer">
+      <a onclick="showPage('home')" id="nav-home">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+        Home
+      </a>
+      <a onclick="showPage('shop')" id="nav-shop">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="9" cy="21" r="1" />
+          <circle cx="20" cy="21" r="1" />
+          <path
+            d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
           />
-          <h3>Michelin Tyre</h3>
-          <p>205/55R16</p>
-        </div>
-        <div class="card rim" onclick="openModal(this)">
-          <img
-            src="https://i.pinimg.com/736x/00/b7/da/00b7dad3598f756eff41c85fe019f580.jpg"
+        </svg>
+        Shop
+      </a>
+      <a onclick="showPage('blog')" id="nav-blog">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+        </svg>
+        Blog
+      </a>
+      <a onclick="showPage('location')" id="nav-location">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        Location
+      </a>
+      <a onclick="showPage('contact')" id="nav-contact">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
           />
-          <h3>Alloy Rim</h3>
-          <p>18 inch</p>
-        </div>
-        <div class="card battery" onclick="openModal(this)">
-          <img
-            src="https://i.pinimg.com/736x/53/8d/f1/538df112c50afc9382e756713229e582.jpg"
-          />
-          <h3>Battery</h3>
-          <p>12V</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section fade-in" id="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery-grid">
-        <div class="gallery-card" onclick="openModal(this)">
-          <img
-            src="https://i.pinimg.com/1200x/b1/f5/25/b1f525d18208a87ca94b90e67c85ef84.jpg"
-          />
-        </div>
-        <div class="gallery-card" onclick="openModal(this)">
-          <img
-            src="https://i.pinimg.com/1200x/c0/ab/0a/c0ab0a188c626b5e92ebea1ef03e5d30.jpg"
-          />
-        </div>
-        <div class="gallery-card" onclick="openModal(this)">
-          <img
-            src="https://i.pinimg.com/736x/9d/02/6d/9d026d44e438f80cec7f200e7976e46c.jpg"
-          />
-        </div>
-        <div class="gallery-card" onclick="openModal(this)">
-          <img
-            src="https://i.pinimg.com/736x/b0/f5/84/b0f58435ffb365f96c41cb42aa017e4b.jpg"
-          />
-        </div>
-      </div>
-    </section>
-
-    <section class="section fade-in" id="services">
-      <h2>Services</h2>
-      <div class="grid">
-        <div class="card">
-          <i class="fas fa-car icon"></i>
-          <h3>Tyre Sales</h3>
-        </div>
-        <div class="card">
-          <i class="fas fa-tools icon"></i>
-          <h3>Alignment</h3>
-        </div>
-        <div class="card">
-          <i class="fas fa-cogs icon"></i>
-          <h3>Balancing</h3>
-        </div>
-        <div class="card">
-          <i class="fas fa-wrench icon"></i>
-          <h3>Repairs</h3>
-        </div>
-      </div>
-    </section>
-
-    <section class="section fade-in" id="contact">
-      <h2>Contact Us</h2>
-      <div class="grid">
-        <div class="card">
-          <i class="fas fa-phone icon"></i>
-          <h3>
-            <a
-              href="tel:+254790909295"
-              style="color: #fff; text-decoration: none"
-              >Call Us</a
-            >
-          </h3>
-        </div>
-        <div class="card">
-          <i class="fab fa-whatsapp icon"></i>
-          <h3>
-            <a
-              href="https://wa.me/254790909295"
-              style="color: #fff; text-decoration: none"
-              >WhatsApp</a
-            >
-          </h3>
-        </div>
-        <div class="card">
-          <i class="fas fa-map-marker-alt icon"></i>
-          <h3>
-            <a
-              href="https://goo.gl/maps/Zr23sVfXH1P2"
-              target="_blank"
-              style="color: #fff; text-decoration: none"
-              >Location</a
-            >
-          </h3>
-        </div>
-      </div>
-    </section>
-
-    <div class="modal" id="modal" onclick="closeModal()">
-      <img id="modalImg" />
+        </svg>
+        Contact
+      </a>
     </div>
-    <a href="https://wa.me/254790909295" class="whatsapp-float"
-      ><i class="fab fa-whatsapp"></i
-    ></a>
-    <footer><p>© 2026 Direct Tyres Limited</p></footer>
+
+    <!-- ═══════════ HOME PAGE ═══════════ -->
+    <div class="page active" id="page-home">
+      <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-tag">Trusted in Kenya Since 2010</div>
+        <h1>Tyres, Rims &amp;<br /><span>Batteries</span><br />Done Right.</h1>
+        <p>15 years of quality service for every vehicle on Kenyan roads.</p>
+        <div class="hero-btns">
+          <a href="tel:+254790909295" class="btn btn-red">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+              />
+            </svg>
+            Call Now
+          </a>
+          <button class="btn btn-ghost" onclick="showPage('shop')">
+            Browse Shop
+          </button>
+        </div>
+      </section>
+
+      <div class="quick-wrap">
+        <div class="quick">
+          <div
+            class="quick-card"
+            onclick="window.location.href = 'tel:+254790909295'"
+          >
+            <div class="qico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                />
+              </svg>
+            </div>
+            <span>Call Us</span>
+          </div>
+          <div
+            class="quick-card"
+            onclick="window.location.href = 'https://wa.me/254790909295'"
+          >
+            <div class="qico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                />
+              </svg>
+            </div>
+            <span>WhatsApp</span>
+          </div>
+          <div class="quick-card" onclick="showPage('shop')">
+            <div class="qico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path
+                  d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
+                />
+              </svg>
+            </div>
+            <span>Shop</span>
+          </div>
+          <div
+            class="quick-card"
+            onclick="
+              showPage('home');
+              document
+                .getElementById('services')
+                .scrollIntoView({ behavior: 'smooth' });
+            "
+          >
+            <div class="qico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M20.49 12H22M2 12h1.51M19.07 19.07l-1.41-1.41M5.34 5.34L3.93 3.93M12 20.49V22M12 2v1.51"
+                />
+              </svg>
+            </div>
+            <span>Services</span>
+          </div>
+          <div class="quick-card" onclick="showPage('location')">
+            <div class="qico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <span>Location</span>
+          </div>
+          <div class="quick-card" onclick="showPage('blog')">
+            <div class="qico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+            </div>
+            <span>Blog</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="services">
+        <span class="pill">What We Do</span>
+        <h2>Our Services</h2>
+        <div class="services-grid">
+          <div class="srv-card">
+            <div class="srv-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <h3>Tyre Sales</h3>
+            <p>New tyres for all vehicles. We help you find the right fit.</p>
+          </div>
+          <div class="srv-card">
+            <div class="srv-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg>
+            </div>
+            <h3>Wheel Alignment</h3>
+            <p>Keeps your car driving straight and reduces tyre wear.</p>
+          </div>
+          <div class="srv-card">
+            <div class="srv-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
+              </svg>
+            </div>
+            <h3>Wheel Balancing</h3>
+            <p>Removes vibration and gives you a smoother ride.</p>
+          </div>
+          <div class="srv-card">
+            <div class="srv-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"
+                />
+              </svg>
+            </div>
+            <h3>Puncture Repair</h3>
+            <p>Fast flat tyre fixes to get you back on the road quickly.</p>
+          </div>
+          <div class="srv-card">
+            <div class="srv-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+                <line x1="12" y1="12" x2="12" y2="16" />
+                <line x1="10" y1="14" x2="14" y2="14" />
+              </svg>
+            </div>
+            <h3>Batteries</h3>
+            <p>Quality car batteries for all makes and models.</p>
+          </div>
+          <div class="srv-card">
+            <div class="srv-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            <h3>Rims &amp; Wipers</h3>
+            <p>Upgrade your rims or replace worn wipers for safety.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="why">
+        <span class="pill">Why Choose Us</span>
+        <h2>Trusted by Kenyan Drivers</h2>
+        <div class="why-grid">
+          <div class="why-item">
+            <div class="why-num">15+</div>
+            <h4>Years of Experience</h4>
+            <p>Serving Kenyan roads since 2010.</p>
+          </div>
+          <div class="why-item">
+            <div class="why-num">100%</div>
+            <h4>Genuine Products</h4>
+            <p>Only quality tyres, rims &amp; batteries.</p>
+          </div>
+          <div class="why-item">
+            <div class="why-num">Fast</div>
+            <h4>Quick Turnaround</h4>
+            <p>In and out — we respect your time.</p>
+          </div>
+          <div class="why-item">
+            <div class="why-num">Fair</div>
+            <h4>Honest Pricing</h4>
+            <p>Clear costs, no hidden charges.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section id="contact">
+        <span class="pill">Get In Touch</span>
+        <h2>We're Here to Help</h2>
+        <div class="contact-list">
+          <a class="contact-card" href="tel:+254790909295">
+            <div class="c-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                />
+              </svg>
+            </div>
+            <div>
+              <strong>Call or WhatsApp</strong><span>0790 909 295</span>
+            </div>
+          </a>
+          <a class="contact-card" href="mailto:directtyreandauto.ke@gmail.com">
+            <div class="c-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
+            <div>
+              <strong>Email</strong><span>directtyreandauto.ke@gmail.com</span>
+            </div>
+          </a>
+          <div
+            class="contact-card"
+            onclick="showPage('location')"
+            style="cursor: pointer"
+          >
+            <div class="c-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <div>
+              <strong>Find Us</strong
+              ><span>View location &amp; directions →</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>
+          © 2026 Direct Tyres Limited &nbsp;·&nbsp;
+          <a href="tel:+254790909295">0790 909 295</a> &nbsp;·&nbsp; Nairobi,
+          Kenya
+        </p>
+      </footer>
+    </div>
+
+    <!-- ═══════════ SHOP PAGE ═══════════ -->
+    <div class="page" id="page-shop">
+      <div class="shop-header">
+        <div class="hero-glow"></div>
+        <div class="hero-tag" style="position: relative">
+          Grip The Road With Confidence
+        </div>
+        <h1 style="position: relative">Our <span>Product</span> Range</h1>
+        <p style="position: relative">
+          Passenger · SUV · Commercial · Heavy Truck · Forklift & Industrial
+        </p>
+      </div>
+
+      <div class="shop-controls">
+        <div class="shop-search">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input
+            type="text"
+            id="shopSearch"
+            placeholder="Search tyres, brands, sizes…"
+            oninput="filterProducts()"
+          />
+        </div>
+        <div class="shop-filter">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="21" y1="10" x2="3" y2="10" />
+            <line x1="21" y1="6" x2="3" y2="6" />
+            <line x1="21" y1="14" x2="3" y2="14" />
+            <line x1="21" y1="18" x2="3" y2="18" />
+          </svg>
+          <select id="shopSort" onchange="filterProducts()">
+            <option value="">Sort: Default</option>
+            <option value="asc">Price: Low → High</option>
+            <option value="desc">Price: High → Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="category-tabs" id="categoryTabs">
+        <div class="cat-tab active" onclick="setCategory('all', this)">
+          All Products
+        </div>
+        <div class="cat-tab" onclick="setCategory('PASSENGER', this)">
+          Passenger
+        </div>
+        <div class="cat-tab" onclick="setCategory('SUV', this)">SUV / 4x4</div>
+        <div class="cat-tab" onclick="setCategory('LIGHT TRUCK', this)">
+          Light Truck
+        </div>
+        <div class="cat-tab" onclick="setCategory('HEAVY TRUCK', this)">
+          Heavy Truck
+        </div>
+        <div class="cat-tab" onclick="setCategory('FORKLIFT', this)">
+          Forklift
+        </div>
+        <div class="cat-tab" onclick="setCategory('INDUSTRIAL', this)">
+          Industrial
+        </div>
+        <div class="cat-tab" onclick="setCategory('SKID STEER', this)">
+          Skid Steer
+        </div>
+      </div>
+
+      <div class="products-grid" id="productsGrid"></div>
+      <div class="no-results" id="noResults" style="display: none">
+        No products match your search.
+      </div>
+      <div class="load-more-wrap" id="loadMoreWrap" style="display: none">
+        <button class="load-more" onclick="loadMore()">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+          Load More
+        </button>
+      </div>
+
+      <footer style="margin-top: 8px">
+        <p>
+          © 2026 Direct Tyres Limited &nbsp;·&nbsp;
+          <a href="tel:+254790909295">0790 909 295</a>
+        </p>
+      </footer>
+    </div>
+
+    <!-- ═══════════ BLOG PAGE ═══════════ -->
+    <div class="page" id="page-blog">
+      <div class="blog-header">
+        <div class="hero-glow"></div>
+        <div class="hero-tag" style="position: relative">Tips & Guides</div>
+        <h1 style="position: relative">Tyre <span>Knowledge</span> Hub</h1>
+        <p style="position: relative">
+          Helpful advice to keep your vehicle running safely and smoothly.
+        </p>
+      </div>
+
+      <div class="blog-cta-box" style="margin: 24px 16px 0">
+        <h3>Stay Informed on the Road</h3>
+        <p>
+          Our blog is coming soon with expert articles on tyre maintenance,
+          safety tips, and product guides. In the meantime, reach out to us
+          directly with any questions.
+        </p>
+        <a
+          class="wa-btn"
+          href="https://wa.me/254790909295?text=Hello!%20I%20have%20a%20question%20about%20tyres."
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+            />
+          </svg>
+          Ask Us on WhatsApp
+        </a>
+      </div>
+
+      <section>
+        <span class="pill">Topics We Cover</span>
+        <h2>What to Expect</h2>
+        <div class="blog-topics">
+          <div class="blog-topic">
+            <div class="t-ico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <h4>Tyre Maintenance</h4>
+            <p>
+              How to extend the life of your tyres and when to replace them.
+            </p>
+          </div>
+          <div class="blog-topic">
+            <div class="t-ico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h4>Road Safety</h4>
+            <p>Tips for safer driving on Kenyan roads in all conditions.</p>
+          </div>
+          <div class="blog-topic">
+            <div class="t-ico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+              </svg>
+            </div>
+            <h4>Battery Guides</h4>
+            <p>
+              Signs your battery is failing and how to choose a replacement.
+            </p>
+          </div>
+          <div class="blog-topic">
+            <div class="t-ico">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            <h4>Buying Advice</h4>
+            <p>How to read tyre sizes and pick the right tyre for your car.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="blog-wa-cta">
+        <p>Have a tyre question right now? Our team is ready to help.</p>
+        <a class="wa-btn" href="https://wa.me/254790909295">Chat on WhatsApp</a>
+      </div>
+
+      <footer>
+        <p>
+          © 2026 Direct Tyres Limited &nbsp;·&nbsp;
+          <a href="tel:+254790909295">0790 909 295</a>
+        </p>
+      </footer>
+    </div>
+
+    <!-- ═══════════ LOCATION PAGE ═══════════ -->
+    <div class="page" id="page-location">
+      <div class="loc-header">
+        <div class="hero-glow"></div>
+        <div class="hero-tag" style="position: relative">Find Us</div>
+        <h1 style="position: relative"><span>Visit</span> Our Shop</h1>
+        <p style="position: relative">
+          We're based in Nairobi — come in anytime during business hours.
+        </p>
+      </div>
+
+      <iframe
+        class="map-embed"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8176!2d36.8219!3d-1.2921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d7!2sNairobi%2C+Kenya!5e0!3m2!1sen!2ske!4v1"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Direct Tyres Location"
+      ></iframe>
+
+      <a
+        class="directions-btn"
+        href="https://maps.google.com/?q=Direct+Tyres+Limited+Nairobi"
+        target="_blank"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polygon points="3 11 22 2 13 21 11 13 3 11" />
+        </svg>
+        Get Directions
+      </a>
+
+      <div class="loc-details">
+        <div class="loc-card">
+          <div class="loc-ico">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <div>
+            <strong>Address</strong>
+            <p>Nairobi, Kenya</p>
+          </div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-ico">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+              />
+            </svg>
+          </div>
+          <div>
+            <strong>Phone</strong>
+            <a href="tel:+254790909295">0790 909 295</a>
+          </div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-ico">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:directtyreandauto.ke@gmail.com"
+              >directtyreandauto.ke@gmail.com</a
+            >
+          </div>
+        </div>
+        <div class="loc-card" style="flex-basis: 100%">
+          <div class="loc-ico">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <div style="width: 100%">
+            <strong>Business Hours</strong>
+            <div class="hours-grid">
+              <div class="hours-row">Mon – Fri <span>8am – 6pm</span></div>
+              <div class="hours-row">Saturday <span>8am – 5pm</span></div>
+              <div class="hours-row">Sunday <span>9am – 2pm</span></div>
+              <div class="hours-row">
+                Public Holidays <span>Call to confirm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section style="padding-top: 0">
+        <span class="pill">Follow Us</span>
+        <h2 style="margin-bottom: 14px">Connect Online</h2>
+        <div class="social-row">
+          <a
+            class="social-btn"
+            href="https://www.facebook.com/Directtyresltd/about"
+            target="_blank"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+              />
+            </svg>
+            Facebook
+          </a>
+          <a
+            class="social-btn"
+            href="https://www.instagram.com/directtyreltd"
+            target="_blank"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+            Instagram
+          </a>
+          <a
+            class="social-btn"
+            href="https://wa.me/254790909295"
+            target="_blank"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+              />
+            </svg>
+            WhatsApp
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <p>
+          © 2026 Direct Tyres Limited &nbsp;·&nbsp;
+          <a href="tel:+254790909295">0790 909 295</a> &nbsp;·&nbsp; Nairobi,
+          Kenya
+        </p>
+      </footer>
+    </div>
+
+    <!-- ═══════════ CONTACT PAGE ═══════════ -->
+    <div class="page" id="page-contact">
+      <div class="loc-header">
+        <div class="hero-glow"></div>
+        <div class="hero-tag" style="position: relative">Reach Out</div>
+        <h1 style="position: relative">Get In <span>Touch</span></h1>
+        <p style="position: relative">
+          We're always happy to help — call, email, or WhatsApp us.
+        </p>
+      </div>
+      <section>
+        <div class="contact-list">
+          <a class="contact-card" href="tel:+254790909295">
+            <div class="c-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                />
+              </svg>
+            </div>
+            <div><strong>Call Us</strong><span>0790 909 295</span></div>
+          </a>
+          <a
+            class="contact-card"
+            href="https://wa.me/254790909295"
+            target="_blank"
+          >
+            <div class="c-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                />
+              </svg>
+            </div>
+            <div>
+              <strong>WhatsApp</strong><span>Chat with us directly</span>
+            </div>
+          </a>
+          <a class="contact-card" href="mailto:directtyreandauto.ke@gmail.com">
+            <div class="c-ico">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
+            <div>
+              <strong>Email</strong><span>directtyreandauto.ke@gmail.com</span>
+            </div>
+          </a>
+        </div>
+      </section>
+      <footer>
+        <p>
+          © 2026 Direct Tyres Limited &nbsp;·&nbsp;
+          <a href="tel:+254790909295">0790 909 295</a>
+        </p>
+      </footer>
+    </div>
 
     <script>
-      function toggleMenu() {
-        document.getElementById("navLinks").classList.toggle("show");
-      }
-      const faders = document.querySelectorAll(".fade-in");
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-          }
-        });
-      });
-      faders.forEach((el) => observer.observe(el));
-      function openModal(card) {
-        document.getElementById("modal").classList.add("show");
-        document.getElementById("modalImg").src = card.querySelector("img").src;
-      }
-      function closeModal() {
-        document.getElementById("modal").classList.remove("show");
+      // ── Product Data (extracted from original shop) ──────────
+      const allProducts = [
+        {
+          name: "TRIANGLE 21X8-9 FORKLIFT",
+          price: 16000,
+          stock: "IN STOCK",
+          cat: "FORKLIFT",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/2bcb2d85-0454-4754-bb36-167151549995.png",
+          url: "https://directtyresltd.com/triangle-21x8-9-forklift-",
+        },
+        {
+          name: "DYNAMO 18x7-8 FORKLIFT",
+          price: 14500,
+          stock: "LIMITED STOCK",
+          cat: "FORKLIFT",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/9c453783-8311-472d-8336-6bfb796f59b7.webp",
+          url: "https://directtyresltd.com/dynamo-18x7-8-forklift-",
+        },
+        {
+          name: "FALKEN 300-15 FORKLIFT",
+          price: 38000,
+          stock: "IN STOCK",
+          cat: "FORKLIFT",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/882ef6f6-1fd6-446c-881b-773c4202687e.webp",
+          url: "https://directtyresltd.com/falken-300-15-forklift-",
+        },
+        {
+          name: "TRIANGLE 28X9-15 FORKLIFT",
+          price: 35000,
+          stock: "LIMITED STOCK",
+          cat: "FORKLIFT",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/1f4d8dbc-a46c-41a8-8b05-6e2abcd6952b.png",
+          url: "https://directtyresltd.com/triangle-28x9-15-forklift-",
+        },
+        {
+          name: "DYNAMO 8.15-15 FORKLIFT",
+          price: 32000,
+          stock: "IN STOCK",
+          cat: "FORKLIFT",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/359e48cf-2ada-4af3-91d7-bb9a1617eed0.webp",
+          url: "https://directtyresltd.com/dynamo-815-15-forklift-",
+        },
+        {
+          name: "FALKEN 7.00-12 FORKLIFT",
+          price: 25000,
+          stock: "LIMITED STOCK",
+          cat: "FORKLIFT",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/d64e71d2-ef4e-4564-80b0-6c3c70cd563b.webp",
+          url: "https://directtyresltd.com/falken-700-12-forklift-",
+        },
+        {
+          name: "TRIANGLE 6.00-9 FORKLIFT",
+          price: 18000,
+          stock: "IN STOCK",
+          cat: "FORKLIFT",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/90ce091f-be0e-40b7-bfaa-9856c94e1f7f.png",
+          url: "https://directtyresltd.com/triangle-600-9-forklift",
+        },
+        {
+          name: "DYNAMO 14-17.5 INDUSTRIAL",
+          price: 68000,
+          stock: "LIMITED STOCK",
+          cat: "INDUSTRIAL",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/9c53fe52-b925-416b-b03d-bc14ba23be17.jpg",
+          url: "https://directtyresltd.com/dynamo-14-175-industrial",
+        },
+        {
+          name: "FALKEN 12-16.5 SKID STEER",
+          price: 55000,
+          stock: "IN STOCK",
+          cat: "SKID STEER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/43bb6f5b-4a13-4406-b20e-e0b417068055.jpg",
+          url: "https://directtyresltd.com/falken-12-165-skid-steer-",
+        },
+        {
+          name: "TRIANGLE 10-16.5 SKID STEER",
+          price: 45000,
+          stock: "LIMITED STOCK",
+          cat: "SKID STEER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/d6105527-cca3-4b80-a75d-5aee42d468c9.webp",
+          url: "https://directtyresltd.com/triangle-10-165-skid-steer-",
+        },
+        {
+          name: "TRIANGLE 185R14C TR645 8PR",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/611d3d2f-565d-41b8-a18b-cbad075f2232.jpg",
+          url: "https://directtyresltd.com/triangle-185r14c-tr645-8pr-",
+        },
+        {
+          name: "CHAOYANG 185R14C SC328 8PR",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/23eec654-be24-4fd4-8c00-6678b9d47449.jpg",
+          url: "https://directtyresltd.com/chaoyang185r14c-sc328-8pr-",
+        },
+        {
+          name: "DYNAMO 185R14C HISCEND-H MC01 8PR",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/728a7724-be8d-4e57-bf7b-3564214f5478.jpg",
+          url: "https://directtyresltd.com/dynamo-185r14c-hiscend-h-mc01-8pr--d954",
+        },
+        {
+          name: "FALKEN 195/50R15 ZE914ER 82V",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/94c78c23-981f-4ab1-8405-3faaf6dc7b35.jpg",
+          url: "https://directtyresltd.com/falken-19550r15-ze914er-82v-mfs-",
+        },
+        {
+          name: "DYNAMO 185/70R14 STREET-H MH01 88H",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/6af176b1-36b1-471b-879e-f649de70ef51.webp",
+          url: "https://directtyresltd.com/dynamo-18570r14-street-h-mh01-88h-1",
+        },
+        {
+          name: "TRIANGLE 275/65R18 TR292 AT",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "SUV",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/ea723ec8-84bc-47ed-a189-fa1574818b81.jpg",
+          url: "https://directtyresltd.com/triangle-30565r17-tr292-mt",
+        },
+        {
+          name: "FALKEN 265/65R17 WILDPEAK AT3",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "SUV",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/b4777a75-6aba-4999-bce8-90e2ad2e9136.jpg",
+          url: "https://directtyresltd.com/dynamo-28570r17-terratour-mt-",
+        },
+        {
+          name: "FALKEN 285/60R18 WILDPEAK AT3",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "SUV",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/4e43ece9-b4a3-4c72-8510-2bb079609997.jpg",
+          url: "https://directtyresltd.com/falken-28560r18-wildpeak-at3-",
+        },
+        {
+          name: "TRIANGLE 245/75R16 TR292 AT",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "SUV",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/686a94ec-647e-40fa-a725-9cd11f047d18.jpg",
+          url: "https://directtyresltd.com/triangle-24575r16-tr292-at-",
+        },
+        {
+          name: "TRIANGLE 165R13C TR652",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/90d49b01-9ba6-4aff-96e0-16196920f147.jpg",
+          url: "https://directtyresltd.com/triangle-165r13c-tr652-",
+        },
+        {
+          name: "DYNAMO 155R12C HISCEND-H MC01",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/0833983b-da95-4a5b-b204-c4ac7ec8779b.jpg",
+          url: "https://directtyresltd.com/dynamo-155r12c-hiscend-h-mc01-",
+        },
+        {
+          name: "FALKEN 175R13C LINAM VAN01",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/537c4842-1c33-45e6-809f-733420814dc5.jpg",
+          url: "https://directtyresltd.com/falken-175r13c-linam-van01-",
+        },
+        {
+          name: "DYNAMO 185R14C HISCEND-H MC02",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/3ca26611-d396-4ebc-ba34-9900a736c171.png",
+          url: "https://directtyresltd.com/dynamo-185r14c-hiscend-h-mc02-",
+        },
+        {
+          name: "TRIANGLE 195R14C TR652",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/538c7767-ca8b-4c45-8c47-cf040e2a4470.jpg",
+          url: "https://directtyresltd.com/triangle-195r14c-tr652-",
+        },
+        {
+          name: "FALKEN 205R14C LINAM VAN01",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/a2167af7-427a-434b-bd60-4704542f48ea.jpg",
+          url: "https://directtyresltd.com/falken-205r14c-linam-van01-",
+        },
+        {
+          name: "DYNAMO 215/70R15C HISCEND-H MC02",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/507236be-a460-477c-b092-0143b78b17bc.jpg",
+          url: "https://directtyresltd.com/dynamo-21570r15c-hiscend-h-mc02-",
+        },
+        {
+          name: "TRIANGLE 215/75R15C TR652",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/77b6bbc2-4499-44da-bd20-397ef56a756c.jpg",
+          url: "https://directtyresltd.com/triangle-21575r15c-tr652",
+        },
+        {
+          name: "FALKEN 225/70R15C LINAM VAN01",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/21eea171-bd41-4f1b-9bd6-79c6ee8dab7c.jpg",
+          url: "https://directtyresltd.com/falken-22570r15c-linam-van01-",
+        },
+        {
+          name: "DYNAMO 225/75R16C HISCEND-H MC02",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/9a3c9476-da6b-4d8a-af4b-b3b5faa141d7.jpg",
+          url: "https://directtyresltd.com/dynamo-22575r16c-hiscend-h-mc02-",
+        },
+        {
+          name: "TRIANGLE 235/65R16C TR652",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/943f44d4-a4bb-47c1-ab54-f140d8958ee3.jpg",
+          url: "https://directtyresltd.com/triangle-23565r16c-tr652-",
+        },
+        {
+          name: "FALKEN 235/70R16C LINAM VAN01",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "LIGHT TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/8bd96beb-d013-48c2-aa7f-43b086714683.jpg",
+          url: "https://directtyresltd.com/falken-23570r16c-linam-van01",
+        },
+        {
+          name: "DYNAMO 245/70R16 TERRATOUR AT",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "SUV",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/6768df75-8a24-4e33-a8e8-e49b2e162fc2.jpg",
+          url: "https://directtyresltd.com/dynamo-24570r16-terratour-at-",
+        },
+        {
+          name: "TRIANGLE 7.50R16 TR624 TT 14PR",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "HEAVY TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/5c1444fe-bbc3-4daf-b986-c3c30149d0f9.jpg",
+          url: "https://directtyresltd.com/cbltr62475a16gh1m210-750r16-triangle-tr624-tt-14pr-12500",
+        },
+        {
+          name: "FALKEN 7.50R16 GI-377 TT 14PR",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "HEAVY TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/49a3aca3-d655-4851-91e7-fe4beaeeed80.webp",
+          url: "https://directtyresltd.com/falken-750r16-gi-377-tt-14pr-",
+        },
+        {
+          name: "APOLLO 7.50-16 ANCHOR 16PR",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "HEAVY TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/823ff7f8-4f0f-44d5-9bd9-052c8635851b.png",
+          url: "https://directtyresltd.com/apollo-750-16-anchor-16pr-de-",
+        },
+        {
+          name: "JINYU 9.5R17.5 JD727 143/141M 18PR",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "HEAVY TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/44d67e1a-5c07-4b80-8c8a-db685d5abdb9.jpg",
+          url: "https://directtyresltd.com/jinyu-95r175-jd727-143141m-18pr",
+        },
+        {
+          name: "JINYU 235/75R17.5 JF518 143/141L",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "HEAVY TRUCK",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/cdcc06a5-9ee4-4470-b086-a1dc20d3384b.jpg",
+          url: "https://directtyresltd.com/jinyu-23575r175-jf518-143141l-18pr",
+        },
+        {
+          name: "FALKEN 225/60R17 FK520L XL 105Y",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/dd696ade-df1f-4270-a60f-880b8e9499db.jpg",
+          url: "https://directtyresltd.com/falken-22560r17-fk520l-xl-105y-",
+        },
+        {
+          name: "FALKEN 225/60R17 ZIEX ZE310R XL",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/fb207801-c534-43ad-baf3-c5d24d90baf9.webp",
+          url: "https://directtyresltd.com/falken-22560r17-ziex-ze310r-xl-105w-",
+        },
+        {
+          name: "FALKEN 225/55R18 FK520L XL 102Y",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/032fbf8a-003f-4e5b-aaa2-f05030174b50.jpg",
+          url: "https://directtyresltd.com/falken-22555r18-fk520l-xl-102y-",
+        },
+        {
+          name: "FALKEN 185/70R14 SN832i 88T",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/12a270e3-de37-4cbf-aa38-ea682e625ba6.jpg",
+          url: "https://directtyresltd.com/falken-18570r14-sn832i-88t-",
+        },
+        {
+          name: "TRIANGLE 185/70R14 TR928 92H",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/f2e93dcc-772d-45d9-a171-698f5fd8050f.webp",
+          url: "https://directtyresltd.com/triangle-18570r14-tr928-92h-",
+        },
+        {
+          name: "TRIANGLE 185/65R15 TR928 92H",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/c50043a7-e8c9-4fd7-bfe8-379223ef42ab.jpg",
+          url: "https://directtyresltd.com/triangle-18565r15-tr928-92h-",
+        },
+        {
+          name: "TRIANGLE 175/70R14 TE301 88H",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/c45b24c4-4cb0-4f01-9c06-7045e8df319f.jpg",
+          url: "https://directtyresltd.com/triangle-17570r14-te301-88h-",
+        },
+        {
+          name: "DYNAMO 175/70R14 STREET-H MH01",
+          price: 0,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/425c1ce0-fae8-4164-9720-d67096e97b85.jpg",
+          url: "https://directtyresltd.com/dynamo-17570r14-street-h-mh01-88txl-",
+        },
+        {
+          name: "DYNAMO 165R13C HISCEND-H MC02",
+          price: 8000,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/cadb5f8c-944d-472a-a2ec-a28bed501ba0.jpg",
+          url: "https://directtyresltd.com/falken",
+        },
+        {
+          name: "FALKEN 175/65R14 ZE914ER 82H",
+          price: 5800,
+          stock: "LIMITED STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/c301c645-0873-49cd-8225-c8eb8e7a767c.jpg",
+          url: "https://directtyresltd.com/falken1",
+        },
+        {
+          name: "TRIANGLE 165R13C TR652 8PR",
+          price: 6600,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/074984bb-9f07-4d0d-b6b9-c3c07266fb6e.jpg",
+          url: "https://directtyresltd.com/triangle",
+        },
+        {
+          name: "DYNAMO 175/70R13 STREET-H MH01",
+          price: 6000,
+          stock: "IN STOCK",
+          cat: "PASSENGER",
+          img: "https://cdn.zyrosite.com/cdn-cgi/image/format=auto,w=600,h=600,fit=crop,q=80/cdn-ecommerce/store_01JE60W9T3DVXXS9M2B5EVC75T/assets/6251e095-c990-4cc5-bd02-c762a9ae6a3d.jpg",
+          url: "https://directtyresltd.com/dynamo",
+        },
+      ];
+
+      const WA_NUM = "254790909295";
+      const PRODUCTS_PER_PAGE = 12;
+      let currentPage = 1;
+      let activeCategory = "all";
+      let filteredProducts = [...allProducts];
+
+      function formatPrice(p) {
+        return p > 0 ? "Ksh " + p.toLocaleString() + ".00" : "Call for Price";
       }
 
-      const counters = document.querySelectorAll(".counter");
-      counters.forEach((counter) => {
-        counter.innerText = "0";
-        const update = () => {
-          const target = +counter.getAttribute("data-target");
-          const c = +counter.innerText;
-          const inc = target / 100;
-          if (c < target) {
-            counter.innerText = Math.ceil(c + inc);
-            setTimeout(update, 20);
-          } else counter.innerText = target;
-        };
-        update();
-      });
+      function waLink(name) {
+        const msg = encodeURIComponent(
+          "Hello! I'm interested in: " + name + ". Is it available?",
+        );
+        return `https://wa.me/${WA_NUM}?text=${msg}`;
+      }
 
-      function filterProducts(type) {
-        document.querySelectorAll("#productGrid .card").forEach((card) => {
-          card.style.display =
-            type === "all" || card.classList.contains(type) ? "block" : "none";
-        });
+      function renderProducts() {
+        const grid = document.getElementById("productsGrid");
+        const noResults = document.getElementById("noResults");
+        const loadMoreWrap = document.getElementById("loadMoreWrap");
+        const visible = filteredProducts.slice(
+          0,
+          currentPage * PRODUCTS_PER_PAGE,
+        );
+
+        if (filteredProducts.length === 0) {
+          grid.innerHTML = "";
+          noResults.style.display = "block";
+          loadMoreWrap.style.display = "none";
+          return;
+        }
+        noResults.style.display = "none";
+
+        grid.innerHTML = visible
+          .map(
+            (p) => `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+        <span class="stock-badge ${p.stock === "LIMITED STOCK" ? "limited" : ""}">${p.stock}</span>
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name.trim()}</div>
+        <div class="product-price">${formatPrice(p.price)}</div>
+      </div>
+      <a class="product-wa" href="${waLink(p.name)}" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        Enquire on WhatsApp
+      </a>
+    </div>
+  `,
+          )
+          .join("");
+
+        loadMoreWrap.style.display =
+          filteredProducts.length > visible.length ? "block" : "none";
       }
-      function searchProduct() {
-        let val = document.getElementById("searchInput").value.toLowerCase();
-        document.querySelectorAll("#productGrid .card").forEach((card) => {
-          card.style.display = card.innerText.toLowerCase().includes(val)
-            ? "block"
-            : "none";
-        });
+
+      function setCategory(cat, el) {
+        activeCategory = cat;
+        document
+          .querySelectorAll(".cat-tab")
+          .forEach((t) => t.classList.remove("active"));
+        el.classList.add("active");
+        currentPage = 1;
+        applyFilters();
       }
+
+      function filterProducts() {
+        currentPage = 1;
+        applyFilters();
+      }
+
+      function applyFilters() {
+        const q = document.getElementById("shopSearch").value.toLowerCase();
+        const sort = document.getElementById("shopSort").value;
+        filteredProducts = allProducts.filter((p) => {
+          const matchCat =
+            activeCategory === "all" || p.cat.includes(activeCategory);
+          const matchQ = p.name.toLowerCase().includes(q);
+          return matchCat && matchQ;
+        });
+        if (sort === "asc") filteredProducts.sort((a, b) => a.price - b.price);
+        if (sort === "desc") filteredProducts.sort((a, b) => b.price - a.price);
+        renderProducts();
+      }
+
+      function loadMore() {
+        currentPage++;
+        renderProducts();
+      }
+
+      // ── Page routing ─────────────────────────────────────────
+      function showPage(name) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + name).classList.add("active");
+        document
+          .querySelectorAll(".drawer a")
+          .forEach((a) => a.classList.remove("active"));
+        const navEl = document.getElementById("nav-" + name);
+        if (navEl) navEl.classList.add("active");
+        window.scrollTo(0, 0);
+        // Close drawer
+        document.getElementById("burger").classList.remove("open");
+        document.getElementById("drawer").classList.remove("open");
+        // Init shop
+        if (name === "shop") renderProducts();
+      }
+
+      // ── Burger toggle ─────────────────────────────────────────
+      document.getElementById("burger").addEventListener("click", () => {
+        document.getElementById("burger").classList.toggle("open");
+        document.getElementById("drawer").classList.toggle("open");
+      });
     </script>
   </body>
 </html>
